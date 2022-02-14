@@ -23,15 +23,13 @@
         <div class="jumbotron">
             <h1 id="title">{{col.collection.title}}</h1>
         </div>
+        <!-- v-if="state === 'visible'" -->
+        <div class="row col-md-11 m-auto bg-light" >
 
-        <div class="row col-md-11 m-auto bg-light">
+            <edit-form></edit-form>
 
-            <item-data v-for="item in col.collection.items" :nombre="item.data[0].prompt" :n2="item.data[0].value"
-            :descripcion="item.data[1].prompt" :descripcion2="item.data[1].value" 
-            :director="item.data[2].prompt" :director2="item.data[2].value" 
-            :estreno="item.data[3].prompt" :estreno2="item.data[3].value" 
-            >
-            <a class="btn btn-primary mb-2" :href="item.href" target="_blank">Ver</a>
+            <item-data  v-for="item in itemsCPId" :key="item.id" :item="item" >
+               
             </item-data>
 
         </div>
@@ -43,38 +41,54 @@
     <!-- Plantilla para el componente edit-form -->
     <script type="text/x-template" id="editForm">
 
-            <!--
-                 TODO: Componente edit-form
-            -->
+        <div>
 
-        </script>
+            <div  v-if="state === 'invisible'">
+                <h3>{{state}}</h3>
+                <h3>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque animi amet placeat.</h3>
+                <button class="btn btn-primary mb-2" @click="toggleEditFormVisibility">Editar</button>
+            </div>
+            <div  v-if="state === 'visible'">
+                <h3>{{state}}</h3>
+                <h3>ESTO ES LA CARA FORMULARIO</h3>
+                <button class="btn btn-primary mb-2" @click="toggleEditFormVisibility">Editar</button>
+            </div>
+
+        </div>
+
+
+    </script>
 
 
 
     <!-- Plantilla para el componente item-data -->
     <script type="text/x-template" id="itemData">
+    
+        <div class="card col-md-4 p-5 p-md-2">
+            <div class="card-body" v-if="state === 'invisible'">
+                <dl>
+                    <dt class="card-text">{{item.data[0].prompt}}</dt>
+                    <dd class="card-tex mb-4">{{item.data[0].value}}</dd>
+                    <dt class="card-text">{{item.data[1].prompt}}</dt>
+                    <dd class="card-tex mb-4">{{item.data[1].value}}</dd>
+                    <dt class="card-text">{{item.data[2].prompt}}</dt>
+                    <dd class="card-tex mb-4">{{item.data[2].value}}</dd>
+                    <dt class="card-text">{{item.data[3].prompt}}</dt>
+                    <dd class="card-tex mb-4">{{item.data[3].value}}</dd>
+                </dl>
+                  <a class="btn btn-primary mb-2" :href="item.href" target="_blank">Ver</a> 
+                  <button class="btn btn-primary mb-2" @click="toggleEditFormVisibility">Editar</button>        
+            </div> 
 
-    <div class="card col-md-4 p-5 p-md-2">
-        <div class="card-body">
-            <dl>
+            <div class="card-body" v-if="state === 'visible'">
+                <h3>{{state}}</h3>
+                <h3>ESTO ES LA CARA FORMULARIO</h3>
+                <button class="btn btn-primary mb-2" @click="toggleEditFormVisibility">Editar</button>
+            </div>
 
-                <dt class="card-text">{{nombre}}</dt>
-                <dd class="card-tex mb-4">{{n2}}</dd>
-                <dt class="card-text">{{descripcion}}</dt>
-                <dd class="card-tex mb-4">{{descripcion2}}</dd>
-                <dt class="card-text">{{director}}</dt>
-                <dd class="card-tex mb-4">{{director2}}</dd>
-                <dt class="card-text">{{estreno}}</dt>
-                <dd class="card-tex mb-4">{{estreno2}}</dd>
 
-                <slot></slot>
-
-                <!-- <dd class="card-tex mb-4">{{propHref}}</dd> -->
-            </dl>
-            <!-- <a class="btn btn-primary mb-2" href="{{propHref}}" target="_blank">Ver</a> -->
-        </div> 
-    </div>
-
+        </div>
+    
     </script>
 
 
