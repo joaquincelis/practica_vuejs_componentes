@@ -45,8 +45,18 @@ Vue.component('edit-form', {
     props: {
         itemdata: {
             type: Array
-        }
+        },
+        index: {
+            type: Number,
+            required: true
+        } 
     },
+    methods: {
+        closeForm(){
+            this.$emit('formClosed')
+            // alert('close form emitido')
+        }
+    }
 
 })
 

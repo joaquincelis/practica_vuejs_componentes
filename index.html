@@ -30,6 +30,14 @@
             </item-data>           
             
         </div>
+
+        <!-- <div class="container-md tag-option">
+            <div class="row col-md-11 m-auto bg-light">
+                <div class="mt-3 col-md-4">
+                    <p>{{}}</p>
+                </div>
+            </div>
+        </div> -->
         
     </div>
     
@@ -61,7 +69,7 @@
                 <input type="text" v-model="itemdata[3].value" class="form-control" id="formControlInput3" >
             </div>
 
-             
+            <button class="btn btn-primary mb-2 ms-2" @click="closeForm">Cerrar</button>
 
         </div>
         
@@ -91,9 +99,9 @@
             </div> 
             
             <div class="card-body" v-if="state === 'visible'">
-                <edit-form :itemdata="item.data" ></edit-form>        
+                <edit-form :itemdata="item.data" :index="index" @formClosed="toggleEditFormVisibility" ></edit-form>        
                 
-                <button class="btn btn-primary mb-2 ms-2" @click="toggleEditFormVisibility">Cerrar</button>
+               
             </div>
             
             
