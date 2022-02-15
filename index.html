@@ -23,48 +23,58 @@
         <div class="jumbotron">
             <h1 id="title">{{col.collection.title}}</h1>
         </div>
-        <!-- v-if="state === 'visible'" -->
+      
         <div class="row col-md-11 m-auto bg-light" >
-
-            <edit-form></edit-form>
-
-            <item-data  v-for="item in itemsCPId" :key="item.id" :item="item" >
-               
-            </item-data>
-
+            
+            <item-data  class="card col-md-4 p-5 p-md-2" v-for="(item, index) of col.collection.items" :item="item" :index="index" :key="item.data[0].value" >              
+            </item-data>           
+            
         </div>
-
+        
     </div>
-
-
-
-    <!-- Plantilla para el componente edit-form -->
+    
+    
+    
+    <!-- Plantilla para el componente edit-form  C2  -->
     <script type="text/x-template" id="editForm">
-
-        <div>
-
-            <div  v-if="state === 'invisible'">
-                <h3>{{state}}</h3>
-                <h3>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque animi amet placeat.</h3>
-                <button class="btn btn-primary mb-2" @click="toggleEditFormVisibility">Editar</button>
+        
+        <div class="container px-0" >
+            
+           
+            <div class="mb-3 col-12">
+                <label for="formControlInput1" class="form-label fw-bold">Name</label>
+                <input type="text" v-model="itemdata[0].value" class="form-control" id="formControlInput1" >
             </div>
-            <div  v-if="state === 'visible'">
-                <h3>{{state}}</h3>
-                <h3>ESTO ES LA CARA FORMULARIO</h3>
-                <button class="btn btn-primary mb-2" @click="toggleEditFormVisibility">Editar</button>
+            
+            <div class="mb-3 col-12">
+                <label for="formControlTextarea1" class="form-label fw-bold">Description</label>
+                <textarea v-model="itemdata[1].value" class="form-control" id="formControlTextarea1" rows="3"></textarea>
             </div>
+            
+            <div class="mb-3 col-12">
+                <label for="formControlInput2" class="form-label fw-bold">Director</label>
+                <input type="text" v-model="itemdata[2].value" class="form-control" id="formControlInput2" >
+            </div>
+            
+            <div class="mb-3 col-12">
+                <label for="formControlInput3" class="form-label fw-bold">Release Date</label>
+                <input type="text" v-model="itemdata[3].value" class="form-control" id="formControlInput3" >
+            </div>
+
+             
 
         </div>
-
-
+        
+        
     </script>
-
-
-
-    <!-- Plantilla para el componente item-data -->
-    <script type="text/x-template" id="itemData">
     
-        <div class="card col-md-4 p-5 p-md-2">
+    
+    
+    <!-- Plantilla para el componente item-data  C1  -->
+    <script type="text/x-template" id="itemData">
+        
+        <div class="wrapper-c1">
+            
             <div class="card-body" v-if="state === 'invisible'">
                 <dl>
                     <dt class="card-text">{{item.data[0].prompt}}</dt>
@@ -76,17 +86,17 @@
                     <dt class="card-text">{{item.data[3].prompt}}</dt>
                     <dd class="card-tex mb-4">{{item.data[3].value}}</dd>
                 </dl>
-                  <a class="btn btn-primary mb-2" :href="item.href" target="_blank">Ver</a> 
-                  <button class="btn btn-primary mb-2" @click="toggleEditFormVisibility">Editar</button>        
+                <a class="btn btn-primary mb-2" :href="item.href" target="_blank">Ver</a> 
+                <button class="btn btn-primary mb-2" @click="toggleEditFormVisibility">Editar</button>    
             </div> 
-
+            
             <div class="card-body" v-if="state === 'visible'">
-                <h3>{{state}}</h3>
-                <h3>ESTO ES LA CARA FORMULARIO</h3>
-                <button class="btn btn-primary mb-2" @click="toggleEditFormVisibility">Editar</button>
+                <edit-form :itemdata="item.data" ></edit-form>        
+                
+                <button class="btn btn-primary mb-2 ms-2" @click="toggleEditFormVisibility">Cerrar</button>
             </div>
-
-
+            
+            
         </div>
     
     </script>

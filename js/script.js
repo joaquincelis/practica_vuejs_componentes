@@ -42,6 +42,27 @@ var server_data = {
 // TODO: Componente edit-form
 Vue.component('edit-form', {
     template: '#editForm',
+    props: {
+        itemdata: {
+            type: Array
+        }
+    },
+
+})
+
+// TODO: Componente item-data
+Vue.component('item-data', {
+    template: '#itemData',
+    props: {
+        item: {
+            type: Object,
+            required: true
+        },   
+        index: {
+            type: Number,
+            required: true
+        } 
+    },
     data(){
         return {
             state: 'invisible'
@@ -51,31 +72,9 @@ Vue.component('edit-form', {
         toggleEditFormVisibility(){
             this.state =
             this.state === 'visible' ? 'invisible' : 'visible'
-            alert('cambio')
+            // alert('cambio')
         }
     }
-})
-
-// TODO: Componente item-data
-Vue.component('item-data', {
-    template: '#itemData',
-    data(){
-        return {
-            state: 'invisible'
-        }
-    },
-    props: {
-        item: {
-            type: Object,
-            required: true
-        }   
-    },
-    // methods: {
-    //     toggleEditFormVisibility(){
-    //         this.state === 'visible' ? 'invisible' : 'visible'
-    //         alert('cambio')
-    //     }
-    // }
 })
 
 // Aplicación VueJS
@@ -83,18 +82,9 @@ Vue.component('item-data', {
 var app = new Vue({
     el: '#app',
     data: {
-        col: server_data,
-        index: 0
-        
-    },
-    computed: {
-        itemsCPId(){
-           for(item of this.col.collection.items){
-              item.id = this.index
-              this.index++
-           }
-           return this.col.collection.items
-        }
+        col: server_data
+           
     }
+   
 });
 
